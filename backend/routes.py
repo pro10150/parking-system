@@ -2,6 +2,7 @@ from flask import current_app, jsonify, request, redirect
 from app import create_app, db
 from models import Articles, articles_schema, Parking, parkings_schema
 from datetime import datetime
+import os
 
 # Create an application instance
 app = create_app()
@@ -29,7 +30,7 @@ def enter():
         db.session.commit()
         parkings = Parking.query.filter(Parking.departure == None)
         results = parkings_schema.dump(parkings)
-        return redirect("http://localhost:3000", code=301)
+        return redirect("http://192.168.1.108:3000", code=301)
     else:
         return "<p>parking spot at full capacity</p>"
 
@@ -47,6 +48,14 @@ def depart(id):
         return "<p>The parking is already departed</p>"
 
 
+@app.route("/detail/<id>", methods=["GET"])
+def get(id):
+    get_parking = Parking.query.get(id)
+    # results = parkings_schema.dump(get_parking)
+    print(get_parking)
+    return jsonify(get_parking.id)
+
+
 @app.route("/parking", methods=["GET"])
 def parking():
     parkings = Parking.query.all()
@@ -56,4 +65,5 @@ def parking():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 6000))
+    app.run(host='0.0.0.0', port=port, debug=True)

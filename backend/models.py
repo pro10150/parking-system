@@ -8,6 +8,11 @@ class Articles(db.Model):
     body = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime(), default=datetime.utcnow)
 
+    def __repr__(self):
+        return "<Articles %r>" % self.title
+
+# Generate marshmallow Schemas from your models
+
 
 class Parking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -16,9 +21,7 @@ class Parking(db.Model):
         db.Integer, nullable=True)
 
     def __repr__(self):
-        return "<Articles %r>" % self.title
-
-# Generate marshmallow Schemas from your models
+        return "<Articles %r>" % self.entry
 
 
 class ArticlesShema(ma.Schema):
