@@ -23,6 +23,8 @@ def articles():
 def enter():
     parkings = Parking.query.filter(Parking.departure == None)
     results = parkings_schema.dump(parkings)
+    # json.JSONEncoder.default = lambda self, obj: (
+    #     obj.isoformat() if isinstance(obj, datetime.datetime) else None)
     if len(results) <= 5:
         parking = Parking()
         date = datetime.utcnow
@@ -30,12 +32,12 @@ def enter():
         db.session.commit()
         parkings = Parking.query.filter(Parking.departure == None)
         results = parkings_schema.dump(parkings)
-        return redirect("http://192.168.1.108:3000", code=301)
+        return jsonify(results[-1])
     else:
         return "<p>parking spot at full capacity</p>"
 
 
-@app.route("/depart/<id>", methods=["PUT"])
+@ app.route("/depart/<id>", methods=["PUT"])
 def depart(id):
     get_parking = Parking.query.get(id)
     if get_parking.departure != 1:
@@ -48,12 +50,19 @@ def depart(id):
         return "<p>The parking is already departed</p>"
 
 
-@app.route("/detail/<id>", methods=["GET"])
+@ app.route("/detail/<id>", methods=["GET"])
 def get(id):
     get_parking = Parking.query.get(id)
     # results = parkings_schema.dump(get_parking)
-    print(get_parking)
-    return jsonify(get_parking.id)
+    # print(get_parking)
+    if get_parking:
+        parking_array = {"status": 1, "id": get_parking.id,
+                         "entry": get_parking.entry, "departure": get_parking.departure}
+    else:
+        parking_array = {
+            "status": 0
+        }
+    return jsonify(parking_array)
 
 
 @app.route("/parking", methods=["GET"])
@@ -65,5 +74,5 @@ def parking():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 6000))
+    port = int(os.environ.get('PORT', 4000))
     app.run(host='0.0.0.0', port=port, debug=True)
