@@ -32,9 +32,13 @@ def enter():
         db.session.commit()
         parkings = Parking.query.filter(Parking.departure == None)
         results = parkings_schema.dump(parkings)
+        results[-1]['status'] = 1
         return jsonify(results[-1])
     else:
-        return "<p>parking spot at full capacity</p>"
+        parking_array = {
+            "status": 0
+        }
+        return jsonify(parking_array)
 
 
 @ app.route("/depart/<id>", methods=["PUT"])
@@ -45,9 +49,14 @@ def depart(id):
         db.session.add(get_parking)
         db.session.commit()
 
-        return "<p> Updated </p>"
+        parking_array = {
+            "status": 1
+        }
     else:
-        return "<p>The parking is already departed</p>"
+        parking_array = {
+            "status": 0
+        }
+    return jsonify(parking_array)
 
 
 @ app.route("/detail/<id>", methods=["GET"])
