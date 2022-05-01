@@ -82,6 +82,17 @@ def parking():
     return jsonify(results)
 
 
+@app.route("/available", methods=["GET"])
+def available():
+    parkings = Parking.query.filter(Parking.departure == None)
+    results = parkings_schema.dump(parkings)
+    parking_array = {
+        "status": 1,
+        "available": 5 - len(results)
+    }
+    return jsonify(parking_array)
+
+
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 4000))
     app.run(host='0.0.0.0', port=port, debug=True)
