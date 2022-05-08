@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css';
 import ArticleList from './Components/ArticleList'
 import ParkingList from './Components/ParkingList'
@@ -22,56 +22,83 @@ function App() {
 
   // Modify the current state by setting the new data to
   // the response from the backend
-  useEffect(()=>{
-    fetch('http://192.168.1.108:4000/parking',{
-      'methods':'GET',
-      headers : {
-        'Content-Type':'application/json'
+  useEffect(() => {
+    fetch('http://192.168.1.36:4000/parking', {
+      'methods': 'GET',
+      headers: {
+        'Content-Type': 'application/json'
       }
     })
-    .then(response => response.json())
-    .then(response => setParkings(response))
-    .catch(error => console.log(error))
+      .then(response => response.json())
+      .then(response => setParkings(response))
+      .catch(error => console.log(error))
 
-  },[])
+  }, [])
 
   const handleSubmit = (e) => {
-      e.preventDefault();
-      navigate('/'+value);
-      // do what you want with your form data
-      // navigate('/2');
+    e.preventDefault();
+    navigate('/' + value);
+    // do what you want with your form data
+    // navigate('/2');
   }
 
   return (
 
-      <Routes>
-        <Route path="/" element={
-          <div className="App container m-4">
+    <Routes>
+      <Route path="/" element={
+        <div className="container-xxl">
           <div className="row">
-            <div className="text-center">
-            <h1>ระบบจอดรถ</h1>
-            <form onSubmit={handleSubmit}>
-              <label>
-                Name:
-                  <input type="number" name="name" value={value} onChange={e => setValue(e.target.value)} />
-              </label>
-              <input type="submit" value="Submit" />
-            </form>
+            <div className="text-center row gy-5">
+              <h1 class="display-1">
+                Carparking Online service
+              </h1>
+            </div>
+            
+            <div class='row  gy-5 align-items-center'>
+              <div className='row col-xxl  gy-5 ' >
+                <div class="text-center">
+                  
+                  <img src={process.env.PUBLIC_URL + "/piccomp/park1.png"} class="rounded mx-auto d-block img-fluid" />
+                </div>
+              </div>
 
+              <div className='col-xxl' >
+                <div class="container-fluid ">
+                  <div class="text-center">
+                  <img src={process.env.PUBLIC_URL + "/piccomp/car 6.png"} class="rounded mx-auto d-block img-fluid" width="200"/>
+                    <br /><br />
+                    <h1 >Check the parking detail</h1>
+                    <br /><br />
+                    </div>
+                  <h3>Parking ID</h3>
+                  <br /> 
+                  <div class="form-floating mb-3">
+                    <form onSubmit={handleSubmit}>
+                      <input type="number" class="form-control" name="name" placeholder='Parking ID' value={value} onChange={e => setValue(e.target.value)} />
+                      <br />
+                      <button type="submit" class="btn btn-success btn-block form-control btn-lg">
+                        Check
+                      </button>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
             </div>
           </div>
 
-            <ParkingList 
+          {/* ลิสต์ คนที่มาจอด */}
+          {/* <ParkingList 
             parkings={parkings} 
-            />
+            /> */}
 
-          </div>  
+        </div>
 
-          } />
-        <Route path="/:id" element={<Detail />} />
-        <Route path="/:id/qr" element={<ParkingQRCode />} />
-      </Routes>
-    
+      } />
+      <Route path="/:id" element={<Detail />} />
+      <Route path="/:id/qr" element={<ParkingQRCode />} />
+    </Routes>
+
   );
 }
 

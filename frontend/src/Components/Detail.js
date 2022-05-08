@@ -10,7 +10,7 @@ function Detail() {
     let { id } = useParams();
     const [parkings, setParkings] = useState([]);
     useEffect(()=>{
-      fetch('http://192.168.1.108:4000/detail/' + id,{
+      fetch('http://192.168.1.36:4000/detail/' + id,{
         'methods':'GET',
         headers : {
           'Content-Type':'application/json'
@@ -25,9 +25,9 @@ function Detail() {
 
     return (
         <div>
-        <Link to="/">
-            <h3>Parking System</h3>
-        </Link>
+        {/* <Link to="/">
+            <h1>Parking System</h1>
+        </Link> */}
 
             <ParkingDetail 
             parkings={parkings} 
