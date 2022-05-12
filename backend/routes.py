@@ -21,11 +21,13 @@ def articles():
 
 @app.route("/enter", methods=["GET"])
 def enter():
-    parkings = Parking.query.filter(Parking.departure == None)
+    parkings = Parking.query.filter(
+        Parking.departure == None, Parking.entry != None)
     results = parkings_schema.dump(parkings)
     # json.JSONEncoder.default = lambda self, obj: (
     #     obj.isoformat() if isinstance(obj, datetime.datetime) else None)
-    if len(results) <= 5:
+    print(len(results))
+    if len(results) < 5:
         parking = Parking()
         date = datetime.utcnow
         db.session.add(parking)
