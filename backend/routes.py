@@ -1,7 +1,7 @@
 from flask import current_app, jsonify, request, redirect
 from app import create_app, db
 from models import Articles, articles_schema, Parking, parkings_schema
-from datetime import datetime
+from datetime import datetime, date
 import os
 
 # Create an application instance
@@ -39,6 +39,25 @@ def enter():
             "status": 0
         }
         return jsonify(parking_array)
+
+
+@app.route("/confirmEnter/<id>", methods=["GET"])
+def confirmEnter(id):
+    get_parking = Parking.query.get(id)
+    if get_parking:
+        get_parking.entry = date.today()
+        db.session.add(get_parking)
+        db.session.commit()
+
+        parking_array = {
+            "status": 1,
+            "id": id
+        }
+    else:
+        parking_array = {
+            "status": 0
+        }
+    return jsonify(parking_array)
 
 
 @ app.route("/depart/<id>", methods=["PUT"])

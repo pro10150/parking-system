@@ -16,7 +16,7 @@ class Articles(db.Model):
 
 class Parking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    entry = db.Column(db.DateTime(), default=datetime.utcnow)
+    entry = db.Column(db.DateTime())
     departure = db.Column(
         db.Integer, nullable=True)
 

@@ -4,6 +4,7 @@ import ArticleList from './Components/ArticleList'
 import ParkingList from './Components/ParkingList'
 import Detail from './Components/Detail'
 import QRCode from "./Components/QRCode";
+import Enter from './Components/Enter'
 import {
   BrowserRouter as Router,
   Routes,
@@ -23,7 +24,7 @@ function App() {
   // Modify the current state by setting the new data to
   // the response from the backend
   useEffect(() => {
-    fetch('http://192.168.1.36:4000/parking', {
+    fetch('http://192.168.1.108:4000/parking', {
       'methods': 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -40,6 +41,22 @@ function App() {
     navigate('/' + value);
     // do what you want with your form data
     // navigate('/2');
+  }
+
+  const handleParking = (e) => {
+    e.preventDefault();
+    // navigate('/enter');
+    fetch("http://192.168.1.108:4000/enter")
+    .then(response => {
+        response.json()
+        .then(data => {
+          let id = data.id
+          navigate('/enter/' + id);
+        })
+    })
+    .catch(response => {
+        console.log(response)
+    })
   }
 
   return (
@@ -65,7 +82,7 @@ function App() {
               <div className='col-xxl' >
                 <div class="container-fluid ">
                   <div class="text-center">
-                  <img src={process.env.PUBLIC_URL + "/piccomp/car 6.png"} class="rounded mx-auto d-block img-fluid" width="200"/>
+                  <img src={process.env.PUBLIC_URL + "/piccomp/car 6.png"} class="rounded mx-auto d-block img-fluid" width="300"/>
                     <br /><br />
                     <h1 >Check the parking detail</h1>
                     <br /><br />
@@ -78,6 +95,12 @@ function App() {
                       <br />
                       <button type="submit" class="btn btn-success btn-block form-control btn-lg">
                         Check
+                      </button>
+                      <h3 class="d-flex justify-content-center">OR</h3>
+                    </form>
+                    <form onSubmit={handleParking}>
+                      <button type="submit" class="btn btn-success btn-block form-control btn-lg">
+                        Enter the parking lot
                       </button>
                     </form>
                   </div>
@@ -97,6 +120,7 @@ function App() {
       } />
       <Route path="/:id" element={<Detail />} />
       <Route path="/:id/qr" element={<ParkingQRCode />} />
+      <Route path="/enter/:id" element={<Enter />}/>
     </Routes>
 
   );
