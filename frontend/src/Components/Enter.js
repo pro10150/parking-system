@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import '../../src/App.css';
 import {
     Link,
+    Navigate,
+    useNavigate,
     useParams
 } from "react-router-dom";
 
@@ -11,19 +13,21 @@ import QRCode from "react-qr-code"
 
 function Enter() {
     let { id } = useParams();
+    const navigate = useNavigate();
 
 
 
     const handleEnter = (e) => {
         e.preventDefault();
         // navigate('/enter');
-        fetch("http://192.168.1.108:4000/detail/1")
+        fetch("http://192.168.1.108:4000/detail/" + id)
         .then(response => {
             response.json()
             .then(data => {
-
                 console.log(data)
-                console.log(data.entry)
+                if(data.entry != null){
+                    navigate('/' + id)
+                }
             })
 
         })

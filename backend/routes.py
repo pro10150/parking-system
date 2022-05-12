@@ -44,7 +44,7 @@ def enter():
 @app.route("/confirmEnter/<id>", methods=["GET"])
 def confirmEnter(id):
     get_parking = Parking.query.get(id)
-    if get_parking:
+    if get_parking.entry == None:
         get_parking.entry = date.today()
         db.session.add(get_parking)
         db.session.commit()
