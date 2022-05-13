@@ -13,7 +13,7 @@ const ParkingDetail = (props) => {
             <div className="row">
                 <div className="text-center row gy-5 text-dark">
                     <Link to="/" style={{ textDecoration: 'none' }}>
-                        <h1 class="display-1 text-dark font-weight-bold">Carparking Online service</h1>
+                        <h1 class="display-1 text-dark font-weight-bold">Car parking Online service</h1>
                     </Link>
                 </div>
 
@@ -44,7 +44,7 @@ const ParkingDetail = (props) => {
                                                         Parked time
                                                     </div>
                                                     <div className='row col-xxl  gx-5 gy-5'>
-                                                        : {new Date(props.parkings.entry).toLocaleString()}
+                                                        : {props.parkings.entry}
                                                     </div>
                                                 </div>
                                             </h3>
@@ -55,7 +55,7 @@ const ParkingDetail = (props) => {
                                                         Current time
                                                     </div>
                                                     <div className='row col-xxl  gx-5 gy-5'>
-                                                        : {new Date().toLocaleString()}
+                                                        : {Date()}
                                                     </div>
                                                 </div>
                                             </h3>
@@ -65,9 +65,15 @@ const ParkingDetail = (props) => {
                                                     <div className='row col-xxl  gx-5 gy-5' >
                                                         Parking period
                                                     </div>
+                                                    {
+                                                        dateDiff[0] != 0 ?
                                                     <div className='row col-xxl  gx-5 gy-5'>
-                                                        : {dateDiff[0]} Days, {dateDiff[1]} : {dateDiff[2]} Hours
-                                                    </div>
+                                                         {dateDiff[0]} Days: {dateDiff[1]} Hours : {dateDiff[2]} Minutes
+                                                    </div> :
+                                                    <div className='row col-xxl  gx-5 gy-5'>
+                                                         {dateDiff[1]} Hours : {dateDiff[2]} Minutes
+                                                    </div> 
+                                                    }
                                                 </div>
                                             </h3>
                                             <br /><br />

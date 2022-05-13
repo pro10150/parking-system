@@ -20,7 +20,7 @@ function Enter() {
     const handleEnter = (e) => {
         e.preventDefault();
         // navigate('/enter');
-        fetch("http://192.168.1.108:4000/detail/" + id)
+        fetch("http://192.168.1.193:4000/detail/" + id)
         .then(response => {
             response.json()
             .then(data => {

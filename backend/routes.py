@@ -45,16 +45,24 @@ def enter():
 
 @app.route("/confirmEnter/<id>", methods=["GET"])
 def confirmEnter(id):
-    get_parking = Parking.query.get(id)
-    if get_parking.entry == None:
-        get_parking.entry = date.today()
-        db.session.add(get_parking)
-        db.session.commit()
+    parkings = Parking.query.filter(
+        Parking.departure == None, Parking.entry != None)
+    results = parkings_schema.dump(parkings)
+    if len(results) < 5:
+        get_parking = Parking.query.get(id)
+        if get_parking.entry == None:
+            get_parking.entry = datetime.now()
+            db.session.add(get_parking)
+            db.session.commit()
 
-        parking_array = {
-            "status": 1,
-            "id": id
-        }
+            parking_array = {
+                "status": 1,
+                "id": id
+            }
+        else:
+            parking_array = {
+                "status": 0
+            }
     else:
         parking_array = {
             "status": 0
