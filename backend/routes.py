@@ -119,6 +119,7 @@ def available():
         "status": 1,
         "available": 5 - len(results)
     }
+
     return jsonify(parking_array)
 
 
