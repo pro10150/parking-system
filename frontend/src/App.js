@@ -24,7 +24,7 @@ function App() {
   // Modify the current state by setting the new data to
   // the response from the backend
   useEffect(() => {
-    fetch('http://172.20.10.2:4000/parking', {
+    fetch('https://parking-system-iot.herokuapp.com/parking', {
       'methods': 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ function App() {
   const handleParking = (e) => {
     e.preventDefault();
     // navigate('/enter');
-    fetch("http://172.20.10.2:4000/enter")
+    fetch("https://parking-system-iot.herokuapp.com/enter")
     .then(response => {
         response.json()
         .then(data => {

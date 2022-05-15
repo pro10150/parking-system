@@ -113,7 +113,8 @@ def parking():
 
 @app.route("/available", methods=["GET"])
 def available():
-    parkings = Parking.query.filter(Parking.departure == None)
+    parkings = Parking.query.filter(
+        Parking.departure == None, Parking.entry != None)
     results = parkings_schema.dump(parkings)
     parking_array = {
         "status": 1,

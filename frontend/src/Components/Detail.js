@@ -10,7 +10,7 @@ function Detail() {
     let { id } = useParams();
     const [parkings, setParkings] = useState([]);
     useEffect(()=>{
-      fetch('http://172.20.10.2:4000/detail/' + id,{
+      fetch('https://parking-system-iot.herokuapp.com/detail/' + id,{
         'methods':'GET',
         headers : {
           'Content-Type':'application/json'

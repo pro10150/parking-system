@@ -20,7 +20,7 @@ function Enter() {
     const handleEnter = (e) => {
         e.preventDefault();
         // navigate('/enter');
-        fetch("http://172.20.10.2:4000/detail/" + id)
+        fetch("https://parking-system-iot.herokuapp.com/detail/" + id)
         .then(response => {
             response.json()
             .then(data => {
@@ -64,7 +64,7 @@ function Enter() {
                                 <h1 >Use this QR Code to enter the parking lot</h1>
                                 <br />
                             </div>
-                            <QRCode class="rounded mx-auto d-block img fluid" value={"enter"} />
+                            <QRCode class="rounded mx-auto d-block img fluid" value={id} />
                         </div>
                         <br />
                         <form onSubmit={handleEnter}>
