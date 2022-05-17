@@ -28,19 +28,19 @@ function ParkingQRCode() {
                     <div className='row col-xxl  gy-5 ' >
                         <div class="text-center">
 
-                            <img src={process.env.PUBLIC_URL + "/piccomp/QR1.png"} class="rounded mx-auto d-block img-fluid" width= "400" />
+                            <img src={process.env.PUBLIC_URL + "/Piccomp/QR1.png"} class="rounded mx-auto d-block img-fluid" width= "400" />
                         </div>
                     </div>
 
-                    <div className='col-xxl' >
+                    <div class='col-xxl' >
                         <div class="container-fluid ">
                             <div class="text-center">
-                                <img src={process.env.PUBLIC_URL + "/piccomp/car 6.png"} class="rounded mx-auto d-block img-fluid" width="300" />
+                                <img src={process.env.PUBLIC_URL + "/Piccomp/car 6.png"} class="rounded mx-auto d-block img-fluid" width="300" />
                                 <br /><br />
                                 <h1 >Your QRCode</h1>
                                 <br />
                             </div>
-                            <QRCode class="rounded mx-auto d-block img fluid" value={id} />
+                            <QRCode class="rounded mx-auto d-block img-fluid" value={id} />
                         </div>
                         <br />
                         <Link to="/">

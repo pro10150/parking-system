@@ -22,7 +22,7 @@ const ParkingDetail = (props) => {
                         <div class="text-center">
                             <h1 >Car parking E-ticket </h1>
                             <br /> <br />
-                            <img src={process.env.PUBLIC_URL + "/piccomp/park2.png"} class="rounded mx-auto d-block img-fluid" />
+                            <img src={process.env.PUBLIC_URL + "/Piccomp/park2.png"} class="rounded mx-auto d-block img-fluid" />
                         </div>
                     </div>
 
@@ -108,7 +108,7 @@ const ParkingDetail = (props) => {
                                         <div class='text-center' >
                                             <h1>Sorry ID not found !</h1>
                                             <br /> <br />
-                                            <img src={process.env.PUBLIC_URL + "/piccomp/error2.png"} class="rounded mx-auto d-block img-fluid" />
+                                            <img src={process.env.PUBLIC_URL + "/Piccomp/error2.png"} class="rounded mx-auto d-block img-fluid" />
                                             <Link to="/">
                                                 <button class="btn btn-dark btn-block form-control btn-lg">
                                                     Back to Home Screen

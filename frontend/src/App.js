@@ -5,6 +5,7 @@ import ParkingList from './Components/ParkingList'
 import Detail from './Components/Detail'
 import QRCode from "./Components/QRCode";
 import Enter from './Components/Enter'
+import Snackbar from 'snackbar'
 import {
   BrowserRouter as Router,
   Routes,
@@ -50,8 +51,16 @@ function App() {
     .then(response => {
         response.json()
         .then(data => {
-          let id = data.id
-          navigate('/enter/' + id);
+          let id = data.id;
+          if(data.status == 1){
+            navigate('/enter/' + id);
+            console.log(data);
+          } else {
+            <Snackbar
+              autoHideDuration={6000}
+              message="Parking lot full"
+              />
+          }
         })
     })
     .catch(response => {
@@ -75,14 +84,14 @@ function App() {
               <div className='row col-xxl  gy-5 ' >
                 <div class="text-center">
                   
-                  <img src={process.env.PUBLIC_URL + "/piccomp/park1.png"} class="rounded mx-auto d-block img-fluid" />
+                  <img src={process.env.PUBLIC_URL + "/Piccomp/park1.png"} class="rounded mx-auto d-block img-fluid"  height="100%"/>
                 </div>
               </div>
 
               <div className='col-xxl' >
                 <div class="container-fluid ">
                   <div class="text-center">
-                  <img src={process.env.PUBLIC_URL + "/piccomp/car 6.png"} class="rounded mx-auto d-block img-fluid" width="300"/>
+                  <img src={process.env.PUBLIC_URL + "/Piccomp/car 6.png"} class="rounded mx-auto d-block img-fluid" width="300"/>
                     <br /><br />
                     <h1 >Check the parking detail</h1>
                     <br /><br />
