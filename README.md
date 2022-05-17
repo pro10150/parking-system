@@ -9,7 +9,8 @@
 
 ### 2. Manually change WiFi name and password in ESP8266 NodeMCU.
 
-    This can be quite dificult to do since you will need to connect NodeMCU, which was inside the sealed model, directly to your computer.
+    This can be quite dificult to do since you will need to connect NodeMCU,
+    which was inside the sealed model, directly to your computer.
 
 # Usage of Parking System
 
